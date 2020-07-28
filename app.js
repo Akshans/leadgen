@@ -1,9 +1,12 @@
 const express = require("express");
 const bodyParser = require("body-parser");
 
-const accountSid = '';
-const authToken = '';
+const accountSid = ''; //PUT TWILIO CREDENTIALS HERE
+const authToken = '';  //PUT TWILIO CREDENTIALS HERE
 const client = require('twilio')(accountSid, authToken);
+
+var multer  = require('multer')
+var upload = multer({ dest: 'uploads/' })
 
 const app = express();
 
@@ -13,12 +16,23 @@ app.use(bodyParser.urlencoded({extended: true}));
 const MessagingResponse =
   require("twilio").twiml.MessagingResponse;
 
-  app.post("/", (req, res) => {
+  app.post("/",  upload.single('myfile'), function (req, res, next){
+    console.log(req.body);
+    console.log("Break")
+    console.log(req.file);
+
+    //make sure that excel sheet is in the correct format, which is an excel sheet of rows? instead lookup file?
+    //if it's in xlsx, convert it to csv
+    //for each line,
+          //make sure line is in correct format. if it's not, print a message saying it's not.
+          //send the message.
+    //get req.body.
+    console.log(req.body.message);
     client.messages
       .create({
          body: req.body.message,
-         from: '+1',
-         to: '+1'
+         from: '+1', //PUT TWILIO PHONE NUMBER HERE
+         to: '+1'   //PUT NASTY NICKS PHONE NUMBER HERE
        })
       .then(message => console.log(message.sid));
 
