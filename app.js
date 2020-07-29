@@ -2,8 +2,8 @@ const http = require('http');
 const express = require("express");
 const bodyParser = require("body-parser");
 
-const accountSid = 'AC0390e3d8181b603d0097df2843b0b23b'; //PUT TWILIO CREDENTIALS HERE
-const authToken = 'e7541f3f894835580355617faa6c4ee1';  //PUT TWILIO CREDENTIALS HERE
+const accountSid = process.env.TWILIO_ACCOUNT_SID; //PUT TWILIO CREDENTIALS HERE
+const authToken = process.env.TWILIO_AUTH_TOKEN;  //PUT TWILIO CREDENTIALS HERE
 const client = require('twilio')(accountSid, authToken);
 
 var multer  = require('multer')
@@ -38,7 +38,7 @@ app.post("/",  upload.single('myfile'), function (req, res, next){
     .then(message => console.log(message.sid));
 });
 
-app.post('/', (req, res) => {
+app.post('/sms', (req, res) => {
   const twiml = new MessagingResponse();
 
   const message = twiml.message();
@@ -53,6 +53,11 @@ app.post('/', (req, res) => {
 app.get("/", function(req, res)
 {
   res.sendFile(__dirname + "/index.html")
+});
+
+app.get("/sms", function(req, res)
+{
+  res.sendFile(__dirname + "/sms/index.xml")
 });
 
 http.createServer(app).listen(1337, () => {
