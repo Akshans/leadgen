@@ -1,6 +1,7 @@
 const http = require('http');
 const express = require("express");
 const bodyParser = require("body-parser");
+const session = require('express-session');
 
 const accountSid = process.env.TWILIO_ACCOUNT_SID; //PUT TWILIO CREDENTIALS HERE
 const authToken = process.env.TWILIO_AUTH_TOKEN;  //PUT TWILIO CREDENTIALS HERE
@@ -38,13 +39,32 @@ app.post("/",  upload.single('myfile'), function (req, res, next){
     .then(message => console.log(message.sid));
 });
 
+app.use(session({secret: 'anything-you-want-but-keep-secret', resave: true, saveUninitialized: true}));
+
 app.post('/sms', (req, res) => {
+  const smsCount = req.session.counter || 0;
+
+  var botui = new BotUI('botui-app') // id of container
+
+  botui.message.bot({ // show first message
+   delay: 200,
+   content: req.body.message
+  })
+
+  if(smsCount == 0)
+  {
+    req.body.message
+  }
+  let message = 'Hello, thanks for the new message!';
+
+  if(smsCount > 0) {
+    message = 'Hello, thanks for message number ' + (smsCount + 1);
+  }
+
+  req.session.counter = smsCount + 1;
+
   const twiml = new MessagingResponse();
-
-  const message = twiml.message();
-  message.body('The Robots are coming! Head for the hills!');
-
-  console.log("found")
+  twiml.message(message);
 
   res.writeHead(200, {'Content-Type': 'text/xml'});
   res.end(twiml.toString());
@@ -57,7 +77,7 @@ app.get("/", function(req, res)
 
 app.get("/sms", function(req, res)
 {
-  res.sendFile(__dirname + "/sms/index.xml")
+  res.sendFile(__dirname + "/sms/index.html")
 });
 
 http.createServer(app).listen(1337, () => {
