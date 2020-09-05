@@ -29,6 +29,7 @@ app.post("/",  upload.single('myfile'), function (req, res, next){
   console.log(req.file);
   console.log(req.body.message);
 
+
   //make sure that excel sheet is in the correct format, which is an excel sheet of rows? instead lookup file?
   //if it's in xlsx, convert it to csv
   //for each line,
@@ -46,6 +47,13 @@ app.post("/",  upload.single('myfile'), function (req, res, next){
 });
 
 app.use(session({secret: 'anything-you-want-but-keep-secret', resave: true, saveUninitialized: true}));
+
+app.post('/storeinmongo', (req,res) => {
+  console.log("Chat message: ")
+  console.log(req.body.chatmessage)
+
+
+})
 
 app.post('/sms', (req, res) => {
   const smsCount = req.session.counter || 0;
