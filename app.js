@@ -65,7 +65,7 @@ app.post('/storeinmongo', (req,res) => {
   dummyDocument.save()
 
 
-})
+});
 
 function SendMessage(fromPhoneNumber, recipientPhoneNumber, message)
 {
