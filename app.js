@@ -1,11 +1,16 @@
+require('dotenv').config();
 const http = require('http');
 const express = require("express");
 const bodyParser = require("body-parser");
 const session = require('express-session');
+const mongoose = require("mongoose")
+const encrypt = require("mongoose-encryption")
 
 const accountSid = process.env.TWILIO_ACCOUNT_SID; //PUT TWILIO CREDENTIALS HERE
 const authToken = process.env.TWILIO_AUTH_TOKEN;  //PUT TWILIO CREDENTIALS HERE
 const client = require('twilio')(accountSid, authToken);
+const mongostring = "mongodb+srv://" + process.env.LEADDBUSER+ ":"+ process.env.LEADDBPASS + "@nicksrealfriends.oumiz.mongodb.net/leaddb"
+mongoose.connect(mongostring)
 
 var multer  = require('multer')
 var upload = multer({ dest: 'uploads/' })
