@@ -44,13 +44,6 @@ app.use(session({secret: 'anything-you-want-but-keep-secret', resave: true, save
 app.post('/sms', (req, res) => {
   const smsCount = req.session.counter || 0;
 
-  var botui = new BotUI('botui-app') // id of container
-
-  botui.message.bot({ // show first message
-   delay: 200,
-   content: req.body.message
-  })
-
   if(smsCount == 0)
   {
     req.body.message
@@ -72,7 +65,7 @@ app.post('/sms', (req, res) => {
 
 app.get("/", function(req, res)
 {
-  res.sendFile(__dirname + "/index.html")
+  res.sendFile(__dirname + "/chatroom.html")
 });
 
 app.get("/sms", function(req, res)
