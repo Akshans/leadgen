@@ -12,6 +12,23 @@ const client = require('twilio')(accountSid, authToken);
 const mongostring = "mongodb+srv://" + process.env.LEADDBUSER+ ":"+ process.env.LEADDBPASS + "@nicksrealfriends.oumiz.mongodb.net/leaddb"
 mongoose.connect(mongostring)
 
+
+var messageLog = new mongoose.Schema({
+  messageName: String,
+  chatmessage: String
+})
+var conversation = new mongoose.Schema({
+  index: Number,
+  messageLogKey: [messageLog]
+})
+var leadSchema = new mongoose.Schema({
+  name: String,
+  phonenumber: String,
+  conversationKey: [conversation]
+});
+
+var Lead = mongoose.model('Lead', leadSchema);
+
 var multer  = require('multer')
 var upload = multer({ dest: 'uploads/' })
 
@@ -51,6 +68,8 @@ app.use(session({secret: 'anything-you-want-but-keep-secret', resave: true, save
 app.post('/storeinmongo', (req,res) => {
   console.log("Chat message: ")
   console.log(req.body.chatmessage)
+
+  //var dummyDocument = new Lead({name: "Nasty NIck",})
 
 
 })
