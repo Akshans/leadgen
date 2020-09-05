@@ -61,7 +61,8 @@ app.post('/storeinmongo', (req,res) => {
   console.log("Chat message: ")
   console.log(req.body.chatmessage)
 
-  //var dummyDocument = new Lead({name: "Nasty NIck",})
+  var dummyDocument = new Lead({name: "Nasty NIck", phonenumber:"69420", conversationKey:[{}]})
+  dummyDocument.save()
 
 
 })
