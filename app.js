@@ -27,6 +27,7 @@ app.post("/",  upload.single('myfile'), function (req, res, next){
   console.log(req.body);
   console.log("Break")
   console.log(req.file);
+  console.log(req.body.message);
 
   //make sure that excel sheet is in the correct format, which is an excel sheet of rows? instead lookup file?
   //if it's in xlsx, convert it to csv
