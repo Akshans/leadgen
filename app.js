@@ -53,7 +53,7 @@ app.post('/sms', (req, res) => {
   {
     req.body.message
   }
-  let message = 'Hello, thanks for the new message!';
+  let message = 'Hello, thankz for the new message!';
 
   if(smsCount > 0) {
     message = 'Hello, thanks for message number ' + (smsCount + 1);
