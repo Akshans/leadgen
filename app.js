@@ -36,14 +36,6 @@ app.post("/",  upload.single('myfile'), function (req, res, next){
         //make sure line is in correct format. if it's not, print a message saying it's not.
         //send the message.
   //get req.body.
-  console.log(req.body.message);
-  client.messages
-    .create({
-        body: req.body.message,
-        from: '+15863156741', //PUT TWILIO PHONE NUMBER HERE
-        to: '+12483038027'   //PUT NASTY NICKS PHONE NUMBER HERE
-      })
-    .then(message => console.log(message.sid));
 });
 
 app.use(session({secret: 'anything-you-want-but-keep-secret', resave: true, saveUninitialized: true}));
@@ -54,6 +46,18 @@ app.post('/storeinmongo', (req,res) => {
 
 
 })
+
+function SendMessage(fromPhoneNumber, recipientPhoneNumber, message)
+{
+  console.log("SendMessage");
+  client.messages
+    .create({
+        body: message,
+        from: fromPhoneNumber, //PUT TWILIO PHONE NUMBER HERE
+        to: recipientPhoneNumber   //PUT NASTY NICKS PHONE NUMBER HERE
+      })
+    .then(message => console.log(message.sid));
+}
 
 app.post('/sms', (req, res) => {
   const smsCount = req.session.counter || 0;
