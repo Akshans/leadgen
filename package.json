@@ -8,6 +8,7 @@
     "botui": "^0.3.9",
     "express": "^4.17.1",
     "express-session": "^1.17.1",
+    "jquery": "^3.5.1",
     "multer": "^1.4.2",
     "ngrok": "^3.2.7",
     "nodemon": "^2.0.4",
