@@ -14,7 +14,7 @@ mongoose.connect(mongostring)
 
 
 var messageLog = new mongoose.Schema({
-  messageName: String,
+  messageSender: String,
   chatmessage: String
 })
 var conversation = new mongoose.Schema({
