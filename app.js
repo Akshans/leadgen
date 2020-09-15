@@ -40,7 +40,7 @@ var upload = multer({
 })
 
 const app = express();
-
+app.set('view engine', 'ejs');
 app.use(express.static("public"));
 app.use(bodyParser.urlencoded({
   extended: true
@@ -182,6 +182,15 @@ app.post('/sms', (req, res) => {
 app.get("/", function(req, res)
 {
   res.sendFile(__dirname + "/Login_v3/index.html")
+});
+
+app.get("/chatejs", function(req, res)
+{
+  Lead.find({},function(err,leadCollection){
+    console.log(leadCollection);
+    res.render("html/chatroom",{leadCollection:leadCollection});
+  });
+
 });
 
 app.get("/sms", function(req, res) {

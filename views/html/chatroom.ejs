@@ -18,9 +18,9 @@
           <div class="col-inside-lg decor-default chat" style="overflow: hidden; outline: none;" tabindex="5000">
             <div class="chat-users">
               <h6>Online</h6>
-              
-                <% for i=0; i<leadCollection.length; i++) { %>
 
+
+                <% for(i = 0; i<leadCollection.length; i++){ %>
                   <div class="user">
                       <div class="avatar">
                       <img src="https://bootdey.com/img/Content/avatar/avatar1.png" alt="User name">
@@ -29,10 +29,11 @@
                       <div class="name"><%=leadCollection[i].name%></div>
                       <div class="mood">User mood</div>
                   </div>
-
               <%  } %>
 
-              <!--  <div class="user">
+
+
+                <!--  <div class="user">
                     <div class="avatar">
                     <img src="https://bootdey.com/img/Content/avatar/avatar2.png" alt="User name">
                     <div class="status online"></div>
